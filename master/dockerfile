@@ -1,7 +1,18 @@
-FROM jenkins/jenkins:lts
+FROM ubuntu:focal
 
 EXPOSE 8080
 RUN mkdir /var/jenkins_home/example-web
+
+#Install Java
+RUN apt-get update
+RUN apt-get install -y openjdk-11-jdk
+RUN java -version
+
+#Install and setup Jenkins:
+RUN curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+RUN echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+RUN apt-get update
+RUN apt-get install -y jenkins
 
 #Install and setup Kubectl:
 RUN apt-get install -y apt-transport-https ca-certificates curl
