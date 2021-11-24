@@ -35,10 +35,3 @@ jenkins setup
         sleep 10
         kubectl get all
       fi
-
-mkdir -p /var/lib/jenkins/.ssh/
-chown -R jenkins:jenkins /var/lib/jenkins
-mkdir -p /jenkins
-chown -R jenkins:jenkins /jenkins
-runuser -l jenkins -c 'ssh-keygen -q -b 2048 -t rsa -f /var/lib/jenkins/.ssh/id_rsa -N ""'
-runuser -l jenkins -c 'git ls-remote -h https://github.com/metalyc/web-example.git HEAD'
