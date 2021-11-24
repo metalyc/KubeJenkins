@@ -1,1 +1,1 @@
-run docker build -t jenkins worker/
+run docker build -t jenkins-worker worker/
