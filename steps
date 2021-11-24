@@ -1,1 +1,2 @@
 run docker build -t jenkins-worker worker/
+upload jenkins worker image to docker hub
