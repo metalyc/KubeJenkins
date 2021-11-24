@@ -1,5 +1,6 @@
+run docker build -t aprhys/jenkins-master master/
 run docker run -it --name master -p 9999:8080 -v jenkins-vol:/var/jenkins_home jenkins/jenkins:lts
   grab password for web login
   setup jenkins
-run docker build -t jenkins-worker worker/
+run docker build -t aprhys/jenkins-worker worker/
 upload jenkins worker image to docker hub
