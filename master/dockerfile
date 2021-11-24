@@ -13,6 +13,12 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FCEF32E745F2C3D5
 RUN apt-get update
 RUN apt-get install -y jenkins
 RUN mkdir /example-web
+RUN mkdir -p /var/lib/jenkins/.ssh/
+RUN chown -R jenkins:jenkins /var/lib/jenkins
+RUN mkdir -p /jenkins
+RUN chown -R jenkins:jenkins /jenkins
+RUN runuser -l jenkins -c 'ssh-keygen -q -b 2048 -t rsa -f /var/lib/jenkins/.ssh/id_rsa -N ""'
+RUN runuser -l jenkins -c 'git ls-remote -h https://github.com/metalyc/web-example.git HEAD'
 
 #Install and setup Kubectl:
 RUN curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
