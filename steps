@@ -1,1 +1,1 @@
-create jenkins container to run jenkins
+run docker build -t jenkins /root/devt2/jenkinsDoc
