@@ -1,6 +1,44 @@
+Instructions extrapolated and reworked from: https://rajpurohitprakash04.medium.com/zero-downtime-deployment-with-kubernetes-ee8074a70ef2
+
 run docker build -t aprhys/jenkins-master master/
 run docker run -it --name master -p 9999:8080 aprhys/jenkins-master
-  grab password for web login
+  docker exec -d master "/usr/sbin/service jenkins start"
+  grab password for web login: cat /var/lib/jenkins/secrets/initialAdminPassword
   setup jenkins
+  stop docker container: docker container stop master
+  create docker image: docker commit master aprhys/jenkins-master
+  push docker image: docker push aprhys/jenkins-master
 
-cat /var/lib/jenkins/secrets/initialAdminPassword
+jenkins setup
+  job 1: pull
+    create new freestyle pipeline
+    set source code management to git with your git repo: https://github.com/metalyc/web-example.git
+    Under build triggers check poll scm and set schedule to: * * * * *
+    under build, select execute shell with:
+      mkdir -p /jenkins/example-web
+      cp -rvf * /jenkins/example-web/
+  job 2: publish docker image
+    jenkins docker plugin?
+  job 3: deploy
+    build
+      if kubectl get deploy | grep web-pod
+      then
+      	echo "Deployment pod already running, rolling out update"
+        kubectl rollout restart ????
+        kubectl rollout status ???
+        sleep 10
+        kubectl get all
+      else
+        kubectl create deploy web-pod --image=aprhys/example-web
+        kubectl expose deploy web-pod --port=80 --type=LoadBalancer
+        kubectl scale deployment web-pod --replicas=3
+        sleep 10
+        kubectl get all
+      fi
+
+mkdir -p /var/lib/jenkins/.ssh/
+chown -R jenkins:jenkins /var/lib/jenkins
+mkdir -p /jenkins
+chown -R jenkins:jenkins /jenkins
+runuser -l jenkins -c 'ssh-keygen -q -b 2048 -t rsa -f /var/lib/jenkins/.ssh/id_rsa -N ""'
+runuser -l jenkins -c 'git ls-remote -h https://github.com/metalyc/web-example.git HEAD'
