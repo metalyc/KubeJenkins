@@ -1,1 +1,1 @@
-run docker build -t jenkins /root/devt2/jenkinsDoc
+run docker build -t jenkins worker.dockerfile
