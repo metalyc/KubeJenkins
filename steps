@@ -9,7 +9,7 @@ run docker run -it --name master -p 9999:8080 aprhys/jenkins-master
   create docker image: docker commit master aprhys/jenkins-master
   push docker image: docker push aprhys/jenkins-master
 
-jenkins setup
+jenkins setup:
   job 1: pull
     create new freestyle pipeline
     set source code management to git with your git repo: https://github.com/metalyc/web-example.git
