@@ -1,13 +1,13 @@
 Instructions extrapolated and reworked from: https://rajpurohitprakash04.medium.com/zero-downtime-deployment-with-kubernetes-ee8074a70ef2
 
-run docker build -t aprhys/jenkins-master master/
-run docker run -it --name master -p 9999:8080 aprhys/jenkins-master
+run docker build -t aprhys/kubejenk master/
+run docker run -it --name master -p 9999:8080 aprhys/kubejenk
   docker exec -d master "/usr/sbin/service jenkins start"
   grab password for web login: cat /var/lib/jenkins/secrets/initialAdminPassword
-  setup jenkins
+  setup jenkins: localhost:9999
   stop docker container: docker container stop master
-  create docker image: docker commit master aprhys/jenkins-master
-  push docker image: docker push aprhys/jenkins-master
+  create docker image: docker commit master aprhys/kubejenk
+  push docker image: docker push aprhys/kubejenk
 
 jenkins setup:
   job 1: pull
