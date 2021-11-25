@@ -6,8 +6,8 @@ run docker run -it --name master -p 9999:8080 aprhys/kubejenk
   grab password for web login: cat /var/lib/jenkins/secrets/initialAdminPassword
   setup jenkins: localhost:9999
   stop docker container: docker container stop master
-  create docker image: docker commit master aprhys/kubejenk
-  push docker image: docker push aprhys/kubejenk
+  create docker image: docker commit master aprhys/kubejenk-built
+  push docker image: docker push aprhys/kubejenk-built
 
 jenkins setup:
   job 1: pull
