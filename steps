@@ -2,7 +2,8 @@ Instructions extrapolated and reworked from: https://rajpurohitprakash04.medium.
 
 run docker build -t aprhys/kubejenk master/
 run docker run -it --name master -p 9999:8080 aprhys/kubejenk
-  docker exec -d master "/usr/sbin/service jenkins start"
+  docker exec -d master "/bin/bash"
+  service jenkins start
   grab password for web login: cat /var/lib/jenkins/secrets/initialAdminPassword
   setup jenkins: localhost:9999
   stop docker container: docker container stop master
