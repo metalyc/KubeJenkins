@@ -6,7 +6,7 @@ RUN apt-get install -y openjdk-11-jdk
 RUN java -version
 
 #Install and setup Jenkins:
-RUN apt-get install -y apt-transport-https ca-certificates curl gnupg openssh-server git
+RUN apt-get install -y apt-transport-https ca-certificates curl gnupg openssh-server git systemctl
 RUN curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
 RUN echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | tee /etc/apt/sources.list.d/jenkins.list > /dev/null
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FCEF32E745F2C3D5
@@ -27,3 +27,5 @@ RUN apt-get update
 RUN apt-get install -y kubectl
 
 EXPOSE 8080
+
+CMD service jenkins start && tail -F /var/lib/jenkins/secrets/initialAdminPassword
