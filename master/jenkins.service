@@ -1,0 +1,13 @@
+[Unit]
+Description=Jenkins systemd service
+Requires=Network.target
+After=Network.target
+
+[Service]
+Type=simple
+RemainAfterExit=yes
+ExecStart=/etc/init.d/jenkins start
+ExecStop=/etc/init.d/jenkins stop
+
+[Install]
+WantedBy=multi-user.target
