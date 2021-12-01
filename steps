@@ -1,13 +1,15 @@
 Instructions extrapolated and reworked from: https://rajpurohitprakash04.medium.com/zero-downtime-deployment-with-kubernetes-ee8074a70ef2
 
-run docker build -t aprhys/kubejenk master/
-run docker run -it --name master -p 9999:8080 aprhys/kubejenk
-  docker exec -d master "/bin/bash"
-  service jenkins start
-  grab password for web login: cat /var/lib/jenkins/secrets/initialAdminPassword
+Create jenkins container:
+  run: docker build -t aprhys/kubejenk kubejenk/
+  run: docker run -it --name kubejenk -p 9999:8080 aprhys/kubejenk
   setup jenkins: localhost:9999
-  stop docker container: docker container stop master
-  create docker image: docker commit master aprhys/kubejenk-built
+    Install suggested plugins
+    Create new admin user
+
+Backup jenkins image:
+  stop docker container: docker container stop kubejenk
+  create docker image: docker commit kubejenk aprhys/kubejenk-built
   push docker image: docker push aprhys/kubejenk-built
 
 jenkins setup:
@@ -18,8 +20,11 @@ jenkins setup:
     under build, select execute shell with:
       mkdir -p /jenkins/example-web
       cp -rvf * /jenkins/example-web/
+
   job 2: publish docker image
-    jenkins docker plugin?
+    In jenkins install the docker-pipeline plugin
+
+
   job 3: deploy
     build
       if kubectl get deploy | grep web-pod
