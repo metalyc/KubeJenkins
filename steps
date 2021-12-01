@@ -20,10 +20,13 @@ jenkins setup:
     under build, select execute shell with:
       mkdir -p /jenkins/example-web
       cp -rvf * /jenkins/example-web/
+      docker build -t web /jenkins/example-web/
+      docker run -it --name web -p 80:80 web
 
-  job 2: publish docker image
-    In jenkins install the docker-pipeline plugin
-
+  job 2: publish docker image #do we need this?
+    In jenkins install the docker-pipeline plugin #do we need this?
+    create new freestyle pipeline
+    Under build triggers
 
   job 3: deploy
     build
