@@ -6,7 +6,12 @@ RUN apt-get install -y openjdk-11-jdk
 RUN java -version
 
 #Install and setup Jenkins:
-RUN apt-get install -y apt-transport-https ca-certificates curl gnupg openssh-server git systemctl
+RUN apt-get install -y apt-transport-https
+RUN apt-get install -y ca-certificates
+RUN apt-get install -y curl
+RUN apt-get install -y gnupg
+RUN apt-get install -y openssh-server
+RUN apt-get install -y git
 RUN curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
 RUN echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | tee /etc/apt/sources.list.d/jenkins.list > /dev/null
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FCEF32E745F2C3D5
@@ -24,7 +29,8 @@ RUN runuser -l jenkins -c 'git ls-remote -h https://github.com/metalyc/web-examp
 RUN curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
 RUN echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
 RUN apt-get update
-RUN apt-get install -y kubectl docker.io
+RUN apt-get install -y kubectl
+RUN apt-get install -y docker.io
 
 EXPOSE 8080
 
