@@ -33,8 +33,8 @@ jenkins setup:
       if kubectl get deploy | grep web-pod
       then
       	echo "Deployment pod already running, rolling out update"
-        kubectl rollout restart ????
-        kubectl rollout status ???
+        kubectl rollout restart web-pod
+        kubectl rollout status web-pod
         sleep 10
         kubectl get all
       else
